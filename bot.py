@@ -7,6 +7,8 @@ from aiogram.contrib.fsm_storage.redis import RedisStorage2
 
 from tgbot.config import load_config
 from tgbot.filters.admin import AdminFilter
+from tgbot.handlers.ActivationCodes.acivation_code import register_activation_code
+from tgbot.handlers.ActivationCodes.codes.register_60 import register_60
 from tgbot.handlers.admin import register_admin
 from tgbot.handlers.echo import register_echo
 from tgbot.handlers.user import register_user
@@ -26,6 +28,8 @@ def register_all_filters(dp):
 def register_all_handlers(dp):
     register_admin(dp)
     register_user(dp)
+    register_activation_code(dp)
+    register_60(dp)
 
     register_echo(dp)
 
