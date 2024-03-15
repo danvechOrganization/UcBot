@@ -10,14 +10,15 @@ class Database:
     def connection(self):
         return sqlite3.connect(self.path)
 
-    def execute(self, sql:str, fetchone:bool=False, fetchall:bool=False, commit:bool=True):
+    def execute(self, sql:str, parameters:tuple=None, fetchone:bool=False, fetchall:bool=False):
         data = None
 
-        cursor = self.connection.cursor()
-        cursor.execute(sql)
-
-        if(commit):
-            self.connection.commit()
+        connection = self.connection
+        cursor = connection.cursor()
+        if(parameters == None):
+            cursor.execute(sql)
+        else:
+            cursor.execute(sql, parameters)
 
         if(fetchone):
             data = cursor.fetchone()
@@ -25,7 +26,10 @@ class Database:
         if(fetchall):
             data = cursor.fetchall()
 
-        self.connection.close()
+        cursor.close()
+        connection.commit()
+        connection.close()
+
         return data
 
     def create_table(self):
@@ -34,6 +38,7 @@ class Database:
 
         self.execute(sql1)
         self.execute(sql2)
+
 
     def delete_codes(self):
         sql = "DELETE FROM CODES WHERE IsUse=True"

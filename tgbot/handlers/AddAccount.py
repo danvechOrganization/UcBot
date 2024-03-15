@@ -43,7 +43,7 @@ async def load_account(message: Message):
             conn = sqlite3.connect("tgbot/services/Database/codes.db")
             cursor = conn.cursor()
             for account, password in zip(accounts, passwords):
-                cursor.execute("INSERT INTO accounts (account, password) VALUES (?, ?)", (account, password))
+                cursor.execute("INSERT INTO ACCOUNTS (login, pass) VALUES (?, ?)", (account, password))
             conn.commit()
             cursor.close()
             conn.close()

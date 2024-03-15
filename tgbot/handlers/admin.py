@@ -10,7 +10,7 @@ from tgbot.services.Database.sqlite import Database
 async def admin_start(message: Message):
     path_to_db = "tgbot/services/Database/codes.db"
     if(os.path.isfile(path_to_db)):
-        await message.answer("База данных уже создана.\n Приветствую администратор")
+        await message.answer("База данных уже создана.\nПриветствую администратор")
     else:
         db = Database("tgbot/services/Database/codes.db")
         db.create_table()
