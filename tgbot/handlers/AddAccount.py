@@ -1,19 +1,18 @@
 import os
 import sqlite3
 
-from aiogram import Dispatcher, types
+from aiogram import Dispatcher, types, Bot
 from aiogram.types import Message
 
 import pandas as pd
+
 
 async def load_account(message: Message):
     # Проверяем, является ли документ Excel-файлом
     if message.document.mime_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
         # Загружаем и читаем Excel-файл
-        file_id = message.document.file_id
-        file = await message.document.get_file(file_id)
-        file_path = f"file_{file_id}.xlsx"
-        await file.download(destination_file=file_path)
+        file_path = f"file_test.xlsx"
+        await message.document.download(destination_file=file_path)
         df = pd.read_excel(file_path)
 
         # Если файл содержит коды, извлекаем их и добавляем в базу данных
@@ -21,10 +20,10 @@ async def load_account(message: Message):
             codes = df["Коды"].tolist()
 
             # Вставляем коды в базу данных
-            conn = sqlite3.connect("codes.db")
+            conn = sqlite3.connect("tgbot/services/Database/codes.db")
             cursor = conn.cursor()
             for code in codes:
-                cursor.execute("INSERT INTO codes (code) VALUES (?)", (code,))
+                cursor.execute("INSERT INTO CODES (code, IsUse) VALUES (?,?)", (code,False))
             conn.commit()
             cursor.close()
             conn.close()
