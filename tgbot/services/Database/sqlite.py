@@ -29,9 +29,11 @@ class Database:
         return data
 
     def create_table(self):
-        sql = "CREATE TABLE IF NOT EXISTS CODES (id INTEGER PRIMARY KEY AUTOINCREMENT, code TEXT NOT NULL, IsUse BOOL NOT NULL)"
+        sql1 = "CREATE TABLE IF NOT EXISTS CODES (id INTEGER PRIMARY KEY AUTOINCREMENT, code TEXT NOT NULL, IsUse BOOL NOT NULL)"
+        sql2 = "CREATE TABLE IF NOT EXISTS ACCOUNTS (id INTEGER PRIMARY KEY AUTOINCREMENT, login TEXT NOT NULL, pass TEXT NOT NULL)"
 
-        self.execute(sql)
+        self.execute(sql1)
+        self.execute(sql2)
 
     def delete_codes(self):
         sql = "DELETE FROM CODES WHERE IsUse=True"

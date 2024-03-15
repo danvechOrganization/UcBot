@@ -39,15 +39,8 @@ async def load_account(message: Message):
             accounts = df["Аккаунт"].tolist()
             passwords = df["Пароль"].tolist()
 
-            # Создаем таблицу accounts, если она не существует
-            conn = sqlite3.connect("accounts.db")
-            cursor = conn.cursor()
-            cursor.execute(
-                "CREATE TABLE IF NOT EXISTS accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, account TEXT NOT NULL, password TEXT NOT NULL)")
-            conn.commit()
-
             # Вставляем аккаунты и пароли в базу данных
-            conn = sqlite3.connect("accounts.db")
+            conn = sqlite3.connect("tgbot/services/Database/codes.db")
             cursor = conn.cursor()
             for account, password in zip(accounts, passwords):
                 cursor.execute("INSERT INTO accounts (account, password) VALUES (?, ?)", (account, password))
