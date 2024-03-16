@@ -41,7 +41,6 @@ async def answer_id(message: Message, state: FSMContext):
     pyautogui.click(952, 447)
     pyautogui.sleep(2)
 
-    counter = 0
     while True:
         # Извлекаем первый код из базы данных
         conn = sqlite3.connect("tgbot/services/Database/codes.db")
@@ -72,16 +71,15 @@ async def answer_id(message: Message, state: FSMContext):
             try:
                 pyautogui.locateOnScreen('tgbot/screenshots/Captcha.png', confidence=0.9)
                 # Копируем аккаунт и пароль из базы данных
-                await copy_account_and_password(message, id, counter)
+                await copy_account_and_password(message, id)
                 Counter.add_counter()
-            except Exception as e:
+            except pyautogui.ImageNotFoundException:
                 pyautogui.click(940, 425)
                 pyautogui.sleep(2)
                 # Активируем код
                 await message.answer(f'60 UC закинул на {id}')
                 db = Database("tgbot/services/Database/codes.db")
                 db.execute(f"UPDATE CODES SET IsUse = TRUE WHERE code = '{code[0]}'")
-                print(e)
                 break
     else:
         await message.answer("Коды закончились.")
