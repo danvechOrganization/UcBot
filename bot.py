@@ -12,6 +12,7 @@ from tgbot.handlers.ActivationCodes.codes.register_60 import register_60
 from tgbot.handlers.AddAccount import register_added_account
 from tgbot.handlers.Show_Note import register_show_note
 from tgbot.handlers.admin import register_admin
+from tgbot.handlers.dell_true import register_del_true
 from tgbot.handlers.echo import register_echo
 from tgbot.handlers.user import register_user
 from tgbot.middlewares.environment import EnvironmentMiddleware
@@ -33,6 +34,7 @@ def register_all_handlers(dp):
     register_60(dp)
     register_added_account(dp)
     register_show_note(dp)
+    register_del_true(dp)
 
     register_echo(dp)
 
