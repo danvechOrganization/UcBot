@@ -6,7 +6,7 @@ from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
 
-from tgbot.misc import InputId
+from tgbot.misc import InputId_180
 from tgbot.services.Counter.counter import Counter
 from tgbot.services.Database.sqlite import Database
 
@@ -19,7 +19,7 @@ async def press_button(message: Message):
         pyautogui.click(photo_id)
         pyautogui.sleep(2)
         await message.answer("Введите ID")
-        await InputId.Id.set()
+        await InputId_180.Id.set()
     except:
         await message.answer("Не нашел изображение")
 
@@ -114,7 +114,7 @@ async def copy_account_and_password(message: Message, id: str, photo: str):
         pyautogui.sleep(2)
         pyautogui.click(958, 589)
         pyautogui.sleep(6)
-        smena_id = pyautogui.locateOnScreen(photo, confidence=0.9)
+        smena_id = pyautogui.locateOnScreen("tgbot/screenshots/Smena.png", confidence=0.9)
         pyautogui.sleep(2)
         pyautogui.click(smena_id)
         pyautogui.sleep(2)
@@ -137,4 +137,4 @@ async def copy_account_and_password(message: Message, id: str, photo: str):
 
 def register_180(dp: Dispatcher):
     dp.register_message_handler(press_button, text="180")
-    dp.register_message_handler(answer_id, state=InputId.Id)
+    dp.register_message_handler(answer_id, state=InputId_180.Id)

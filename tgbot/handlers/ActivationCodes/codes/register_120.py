@@ -6,12 +6,12 @@ from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
 
-from tgbot.misc import InputId
+from tgbot.misc import InputId_120
 from tgbot.services.Counter.counter import Counter
 from tgbot.services.Database.sqlite import Database
 
 
-async def press_button(message: Message):
+async def press_button_120(message: Message, dp: Dispatcher):
     photo = "tgbot/screenshots/Smena.png"
     try:
         photo_id = pyautogui.locateOnScreen(photo, confidence=0.8)
@@ -19,12 +19,12 @@ async def press_button(message: Message):
         pyautogui.click(photo_id)
         pyautogui.sleep(2)
         await message.answer("Введите ID")
-        await InputId.Id.set()
+        await InputId_120.Id.set()
     except:
         await message.answer("Не нашел изображение")
 
 
-async def answer_id(message: Message, state: FSMContext):
+async def answer_id_120(message: Message, state: FSMContext):
     id = message.text
     await message.answer(f"Круто, ты ввел {id}")
     await state.finish()
@@ -81,7 +81,6 @@ async def answer_id(message: Message, state: FSMContext):
                     await message.answer(f'120 UC закинул на {id}')
                     db = Database("tgbot/services/Database/codes.db")
                     db.execute(f"UPDATE CODES SET IsUse = TRUE WHERE code = '{code[0]}'")
-                    print(e)
                     break
         else:
             await message.answer("Коды закончились.")
@@ -115,7 +114,7 @@ async def copy_account_and_password(message: Message, id: str, photo: str):
         pyautogui.sleep(2)
         pyautogui.click(958, 589)
         pyautogui.sleep(6)
-        smena_id = pyautogui.locateOnScreen(photo, confidence=0.9)
+        smena_id = pyautogui.locateOnScreen("tgbot/screenshots/Smena.png", confidence=0.9)
         pyautogui.sleep(2)
         pyautogui.click(smena_id)
         pyautogui.sleep(2)
@@ -137,5 +136,5 @@ async def copy_account_and_password(message: Message, id: str, photo: str):
 
 
 def register_120(dp: Dispatcher):
-    dp.register_message_handler(press_button, text="120")
-    dp.register_message_handler(answer_id, state=InputId.Id)
+    dp.register_message_handler(press_button_120, text='120', state='*')
+    dp.register_message_handler(answer_id_120, state=InputId_120.Id)

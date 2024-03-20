@@ -6,12 +6,12 @@ from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
 
-from tgbot.misc import InputId
+from tgbot.misc import InputId_60
 from tgbot.services.Counter.counter import Counter
 from tgbot.services.Database.sqlite import Database
 
 
-async def press_button(message: Message):
+async def press_button_60(message: Message):
     photo = "tgbot/screenshots/Smena.png"
     try:
         photo_id = pyautogui.locateOnScreen(photo, confidence=0.8)
@@ -19,12 +19,12 @@ async def press_button(message: Message):
         pyautogui.click(photo_id)
         pyautogui.sleep(2)
         await message.answer("Введите ID")
-        await InputId.Id.set()
+        await InputId_60.Id.set()
     except:
         await message.answer("Не нашел изображение")
 
 
-async def answer_id(message: Message, state: FSMContext):
+async def answer_id_60(message: Message, state: FSMContext):
     id = message.text
     await message.answer(f"Круто, ты ввел {id}")
     await state.finish()
@@ -85,7 +85,7 @@ async def answer_id(message: Message, state: FSMContext):
         await message.answer("Коды закончились.")
 
 
-async def copy_account_and_password(message: Message, id: str, photo: str):
+async def copy_account_and_password(message: Message, id: str):
     # Извлекаем следующий аккаунт и пароль из базы данных
     db = Database("tgbot/services/Database/codes.db")
     account_and_password = db.execute(f"SELECT login, pass FROM ACCOUNTS ORDER BY id ASC LIMIT 1 OFFSET {Counter.COUNTER}", fetchone=True)
@@ -112,7 +112,7 @@ async def copy_account_and_password(message: Message, id: str, photo: str):
         pyautogui.sleep(2)
         pyautogui.click(958, 589)
         pyautogui.sleep(6)
-        smena_id = pyautogui.locateOnScreen(photo, confidence=0.9)
+        smena_id = pyautogui.locateOnScreen("tgbot/screenshots/Smena.png", confidence=0.9)
         pyautogui.sleep(2)
         pyautogui.click(smena_id)
         pyautogui.sleep(2)
@@ -133,5 +133,5 @@ async def copy_account_and_password(message: Message, id: str, photo: str):
         await message.answer("К сожалению, в базе данных нет аккаунтов и паролей.")
 
 def register_60(dp: Dispatcher):
-    dp.register_message_handler(press_button, text="60")
-    dp.register_message_handler(answer_id, state=InputId.Id)
+    dp.register_message_handler(press_button_60, text='60', state='*')
+    dp.register_message_handler(answer_id_60, state=InputId_60.Id)
