@@ -5,9 +5,11 @@ from tgbot.services.ProxyAndUA.proxy_list import proxy_list
 from tgbot.services.ProxyAndUA.ua_list import user_agent_list
 
 previous_proxy = None  # Переменная для хранения предыдущего прокси
+previous_driver = None  # Переменная для хранения предыдущего драйвера
 
 def get_chromedriver(proxy_list=None, user_agent_list=None):
     global previous_proxy  # Объявление глобальной переменной
+    global previous_driver
     options = webdriver.ChromeOptions()
     options.add_experimental_option("detach", True)
 
@@ -34,6 +36,17 @@ def get_chromedriver(proxy_list=None, user_agent_list=None):
     if user_agent_list:
         user_agent = random.sample(user_agent_list, 1)[0]
         options.add_argument(f'--user-agent={user_agent}')
+
+    if previous_driver:
+        try:
+            previous_driver.quit()
+        except Exception as e:
+            print(f"An error occurred while quitting the previous driver: {e}")
+
+        # Создаем новый драйвер
+    driver = webdriver.Chrome(options=options)
+    previous_driver = driver  # Сохраняем ссылку на новый драйвер
+    return driver
 
     driver = webdriver.Chrome(options=options)
     return driver

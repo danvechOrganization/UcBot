@@ -80,7 +80,6 @@ async def answer_id_60(message: Message, state: FSMContext):
 
 
 async def copy_account_and_password(message: Message, id: str):
-    pyautogui.click(1893, 16, duration=0.25)
     await proxy_run()
     # Извлекаем следующий аккаунт и пароль из базы данных
     db = Database("tgbot/services/Database/codes.db")
