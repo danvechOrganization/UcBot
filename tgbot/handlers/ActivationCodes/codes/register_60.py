@@ -93,7 +93,7 @@ async def copy_account_and_password(message: Message, id: str):
         pyautogui.click(1482, 172, duration=0.25)
         pyautogui.sleep(6)
         pyperclip.copy(account_and_password[0])
-        acc = pyperclip.copy(account_and_password[0])
+        acc = account_and_password[0]
         pyautogui.click(915, 546, duration=0.25)
         pyautogui.hotkey('ctrl', 'v')
         pyautogui.click(959, 629, duration=0.25)
