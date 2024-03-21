@@ -6,6 +6,7 @@ menu = ReplyKeyboardMarkup([
     ],
     [
         KeyboardButton(text="Удалить Коды Исп."),
-        KeyboardButton(text="Количество строк")
+        KeyboardButton(text="Количество строк"),
+        KeyboardButton(text="Запуск Браузера")
     ]
 ], resize_keyboard=True)

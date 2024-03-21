@@ -9,6 +9,7 @@ from aiogram.types import Message
 from tgbot.misc import InputId_180
 from tgbot.services.Counter.counter import Counter
 from tgbot.services.Database.sqlite import Database
+from tgbot.services.chromiumdriver import proxy_run
 
 
 async def press_button(message: Message):
@@ -28,13 +29,13 @@ async def answer_id(message: Message, state: FSMContext):
     await message.answer(f"Круто, ты ввел {id}")
     await state.finish()
     pyperclip.copy(id)
-    pyautogui.click(940, 377, duration=0.25)
-    pyautogui.click(1131, 378, duration=0.25)
-    pyautogui.click(930, 375, button='right', duration=0.25)
+    pyautogui.click(952, 368, duration=0.25)
+    pyautogui.click(1141, 371, duration=0.25)
+    pyautogui.click(936, 370, button='right', duration=0.25)
     pyautogui.sleep(1)
-    pyautogui.click(1015, 526, duration=0.25)
-    pyautogui.click(952, 447, duration=0.25)
-    pyautogui.sleep(1)
+    pyautogui.click(991, 551, duration=0.25)
+    pyautogui.click(968, 511, duration=0.25)
+    pyautogui.sleep(2)
 
     for i in range(3):
         while True:
@@ -50,16 +51,16 @@ async def answer_id(message: Message, state: FSMContext):
             # Если код существует, копируем его и удаляем из базы данных
             if code:
                 pyperclip.copy(code[0])
-                pyautogui.sleep(3)
-                pyautogui.click(864, 701, duration=0.25)
-                pyautogui.click(1070, 699, duration=0.25)
-                pyautogui.click(855, 700, button='right', duration=0.25)
                 pyautogui.sleep(1)
-                pyautogui.click(889, 852, duration=0.25)
-                pyautogui.click(1195, 695, duration=0.25)
+                pyautogui.click(851, 691, duration=0.25)
+                pyautogui.click(1070, 693, duration=0.25)
+                pyautogui.click(867, 690, button='right', duration=0.25)
+                pyautogui.sleep(1)
+                pyautogui.click(936, 824, duration=0.25)
+                pyautogui.click(1195, 691, duration=0.25)
                 pyautogui.sleep(3)
                 # Нажатие на Submit перед капчей
-                pyautogui.click(945, 805, duration=0.25)
+                pyautogui.click(946, 803, duration=0.25)
                 pyautogui.sleep(3)
                 # Проверяем, есть ли на экране кнопка "Я не робот"
                 try:
@@ -68,7 +69,7 @@ async def answer_id(message: Message, state: FSMContext):
                     await copy_account_and_password(message, id)
                     Counter.add_counter()
                 except pyautogui.ImageNotFoundException:
-                    pyautogui.click(940, 425, duration=0.25)
+                    pyautogui.click(938, 418, duration=0.25)
                     pyautogui.sleep(3)
                     # Активируем код
                     db = Database("tgbot/services/Database/codes.db")
@@ -76,10 +77,12 @@ async def answer_id(message: Message, state: FSMContext):
                     break
             else:
                 await message.answer("Коды закончились.")
-    await message.answer(f'120 UC закинул на {id}')
+    await message.answer(f'180 UC закинул на {id}')
 
 
 async def copy_account_and_password(message: Message, id: str):
+    pyautogui.click(1893, 16, duration=0.25)
+    await proxy_run()
     # Извлекаем следующий аккаунт и пароль из базы данных
     db = Database("tgbot/services/Database/codes.db")
     account_and_password = db.execute(
@@ -87,37 +90,32 @@ async def copy_account_and_password(message: Message, id: str):
 
     # Если аккаунт и пароль существуют, копируем их в буфер обмена
     if account_and_password:
-        pyautogui.click(1186, 297, duration=0.25)
-        pyautogui.sleep(1)
-        pyautogui.click(1475, 120, duration=0.25)
-        pyautogui.click(1395, 485, duration=0.25)
+        pyautogui.click(879, 26, duration=0.25)
+        pyautogui.click(1133, 358, duration=0.25)
+        pyautogui.click(1486, 157, duration=0.25)
         pyautogui.sleep(6)
-        pyautogui.click(1480, 115, duration=0.25)
-        pyautogui.sleep(6)
-        pyautogui.click(1147, 519, duration=0.25)
         pyperclip.copy(account_and_password[0])
-        pyautogui.click(930, 520, button='right', duration=0.25)
-        pyautogui.sleep(1)
-        pyautogui.click(1016, 673, duration=0.25)
-        pyautogui.click(955, 595, duration=0.25)
+        acc = pyperclip.copy(account_and_password[0])
+        pyautogui.click(975, 538, duration=0.25)
+        pyautogui.hotkey('ctrl', 'v')
+        pyautogui.click(960, 616, duration=0.25)
         pyperclip.copy(account_and_password[1])
         pyautogui.sleep(3)
-        pyautogui.click(930, 596, button='right', duration=0.25)
-        pyautogui.sleep(1)
-        pyautogui.click(999, 820, duration=0.25)
-        pyautogui.click(960, 725, duration=0.25)
+        pyautogui.click(940, 620, duration=0.25)
+        pyautogui.hotkey('ctrl', 'v')
+        pyautogui.click(959, 745, duration=0.25)
         pyautogui.sleep(6)
         smena_id = pyautogui.locateOnScreen("tgbot/screenshots/Smena.png", confidence=0.9)
         pyautogui.click(smena_id, duration=0.25)
-        pyautogui.click(940, 377, duration=0.25)
-        pyautogui.click(1131, 378, duration=0.25)
+        pyautogui.click(952, 368, duration=0.25)
+        pyautogui.click(1141, 371, duration=0.25)
         pyperclip.copy(id)
-        pyautogui.click(930, 375, button='right', duration=0.25)
+        pyautogui.click(936, 370, button='right', duration=0.25)
         pyautogui.sleep(1)
-        pyautogui.click(963, 523, duration=0.25)
-        pyautogui.click(952, 447, duration=0.25)
-        pyautogui.sleep(2)
-        await message.answer("Я сменил аккаунт")
+        pyautogui.click(991, 551, duration=0.25)
+        pyautogui.click(968, 511, duration=0.25)
+        pyautogui.sleep(1)
+        await message.answer(f"Я сменил аккаунт на {acc}")
     else:
         await message.answer("К сожалению, в базе данных нет аккаунтов и паролей.")
 
