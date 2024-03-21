@@ -9,3 +9,6 @@ class InputId_120(StatesGroup):
 
 class InputId_180(StatesGroup):
     Id = State()
+
+class InputId_300(StatesGroup):
+    Id = State()

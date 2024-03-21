@@ -4,7 +4,8 @@ codes = ReplyKeyboardMarkup([
     [
         KeyboardButton(text="60"),
         KeyboardButton(text="120"),
-        KeyboardButton(text="180")
+        KeyboardButton(text="180"),
+        KeyboardButton(text="300")
     ],
     [
         KeyboardButton(text="🔙")
