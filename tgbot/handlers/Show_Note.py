@@ -13,9 +13,16 @@ async def show_note(message: Message):
     # Выполняем запрос для получения количества строк
     cursor.execute("SELECT COUNT(*) FROM codes")
     # Получаем количество строк
-    count = cursor.fetchone()[0]
+    count_codes = cursor.fetchone()[0]
+
+    # Выполняем запрос для получения количества строк в таблице codes_325
+    cursor.execute("SELECT COUNT(*) FROM codes_325")
+    # Получаем количество строк в таблице codes_325
+    count_codes_325 = cursor.fetchone()[0]
+
     # Отправляем сообщение с количеством строк
-    await message.answer(text=f"Количество строк в базе данных: {count}")
+    await message.answer(text=f"Кодов по 60: {count_codes}\n"
+                               f"Кодов по 325: {count_codes_325}")
     # Закрываем соединение с базой данных
     cursor.close()
     conn.close()

@@ -23,7 +23,7 @@ async def load_account(message: Message):
             conn = sqlite3.connect("tgbot/services/Database/codes.db")
             cursor = conn.cursor()
             for code in codes:
-                cursor.execute("INSERT INTO CODES (code, IsUse) VALUES (?,?)", (code,False))
+                cursor.execute("INSERT INTO CODES (code, IsUse) VALUES (?,?)", (code, False))
             conn.commit()
             cursor.close()
             conn.close()
@@ -53,11 +53,28 @@ async def load_account(message: Message):
 
             # Отправляем сообщение пользователю
             await message.answer("Аккаунты успешно загружены. Спасибо!")
+
+        # Если файл содержит коды, извлекаем их и добавляем в базу данных
+        elif "Коды_325" in df.columns:
+            codes_325 = df["Коды_325"].tolist()
+
+            # Вставляем коды в базу данных
+            conn = sqlite3.connect("tgbot/services/Database/codes.db")
+            cursor = conn.cursor()
+            for code in codes_325:
+                cursor.execute("INSERT INTO CODES_325 (code_325, IsUse) VALUES (?,?)", (code, False))
+            conn.commit()
+            cursor.close()
+            conn.close()
+
+            # Удаляем временный Excel-файл
+            os.remove(file_path)
+
+            # Отправляем сообщение пользователю
+            await message.answer("Коды успешно пополнены. Спасибо!")
         else:
             await message.answer(
                 "Присланный файл не содержит ни кодов, ни аккаунтов с паролями. Пожалуйста, пришли мне Excel-файл с нужными данными.")
-
-
 
 
 def register_added_account(dp: Dispatcher):

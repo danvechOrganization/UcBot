@@ -94,7 +94,6 @@ async def copy_account_and_password(message: Message, id: str):
         pyautogui.click(1482, 172, duration=0.25)
         pyautogui.sleep(6)
         pyperclip.copy(account_and_password[0])
-        acc = account_and_password[0]
         pyautogui.click(915, 546, duration=0.25)
         pyautogui.hotkey('ctrl', 'v')
         pyautogui.click(959, 629, duration=0.25)
@@ -114,7 +113,7 @@ async def copy_account_and_password(message: Message, id: str):
         pyautogui.click(982, 596, duration=0.25)
         pyautogui.click(958, 471, duration=0.25)
         pyautogui.sleep(2)
-        await message.answer(f"Я сменил аккаунт на {acc}")
+        await message.answer(f"Я сменил аккаунт на {account_and_password[0]}")
     else:
         await message.answer("К сожалению, в базе данных нет аккаунтов и паролей.")
 

@@ -35,12 +35,16 @@ class Database:
     def create_table(self):
         sql1 = "CREATE TABLE IF NOT EXISTS CODES (id INTEGER PRIMARY KEY AUTOINCREMENT, code TEXT NOT NULL, IsUse BOOL NOT NULL)"
         sql2 = "CREATE TABLE IF NOT EXISTS ACCOUNTS (id INTEGER PRIMARY KEY AUTOINCREMENT, login TEXT NOT NULL, pass TEXT NOT NULL)"
+        sql3 = "CREATE TABLE IF NOT EXISTS CODES_325 (id INTEGER PRIMARY KEY AUTOINCREMENT, code_325 TEXT NOT NULL, IsUse BOOL NOT NULL)"
 
         self.execute(sql1)
         self.execute(sql2)
+        self.execute(sql3)
 
 
     def delete_codes(self):
         sql = "DELETE FROM CODES WHERE IsUse=True"
+        sql1 = "DELETE FROM CODES_325 WHERE IsUse=True"
 
         self.execute(sql)
+        self.execute(sql1)

@@ -13,9 +13,14 @@ async def del_true(message: Message):
     # Выполняем запрос для получения количества строк
     cursor.execute("SELECT COUNT(*) FROM codes")
     # Получаем количество строк
-    count = cursor.fetchone()[0]
+    count_codes = cursor.fetchone()[0]
+    # Выполняем запрос для получения количества строк в таблице codes_325
+    cursor.execute("SELECT COUNT(*) FROM codes_325")
+    # Получаем количество строк
+    count_codes_325 = cursor.fetchone()[0]
     # Отправляем сообщение с количеством строк
-    await message.answer(text=f"Я удалил использованные. В базе осталось: {count}")
+    await message.answer(text=f"Я удалил использованные,60 осталось: {count_codes}\n"
+                               f"Я удалил использованные,325 осталось: {count_codes_325}")
     # Закрываем соединение с базой данных
     cursor.close()
     conn.close()

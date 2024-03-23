@@ -12,3 +12,6 @@ class InputId_180(StatesGroup):
 
 class InputId_300(StatesGroup):
     Id = State()
+
+class InputId_325(StatesGroup):
+    Id = State()

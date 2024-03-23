@@ -12,6 +12,7 @@ from tgbot.handlers.ActivationCodes.codes.register_120 import register_120
 from tgbot.handlers.ActivationCodes.codes.register_180 import register_180
 from tgbot.handlers.ActivationCodes.codes.register_300 import register_300
 from tgbot.handlers.ActivationCodes.codes.register_60 import register_60
+from tgbot.handlers.ActivationCodes.codes.resgister_325 import register_325
 from tgbot.handlers.AddAccount import register_added_account
 from tgbot.handlers.Show_Note import register_show_note
 from tgbot.handlers.admin import register_admin
@@ -39,6 +40,7 @@ def register_all_handlers(dp):
     register_120(dp)
     register_180(dp)
     register_300(dp)
+    register_325(dp)
     register_added_account(dp)
     register_show_note(dp)
     register_del_true(dp)
