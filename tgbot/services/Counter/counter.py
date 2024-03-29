@@ -6,5 +6,5 @@ class Counter:
     def add_counter(cls):
         cls.COUNTER += 1
 
-        if(cls.COUNTER > 16):
+        if(cls.COUNTER > 29):
             cls.COUNTER = 0

@@ -1,3 +1,4 @@
+import time
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
@@ -13,6 +14,8 @@ async def id_input(id):
     switch_id = WebDriverWait(driver, 10).until(ec.element_to_be_clickable((By.CSS_SELECTOR,
                                                                                           "i[class='i-midas:switch icon ']")))
     switch_id.click()
+
+    time.sleep(3)
 
     # Очистка поля id
     password_input = WebDriverWait(driver, 10).until(
