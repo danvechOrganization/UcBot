@@ -35,11 +35,15 @@ async def code_insert(code, id):
     click_submit.click()
 
     try:
-        verify_win = WebDriverWait(driver, 5).until(
-            ec.visibility_of_element_located((By.CSS_SELECTOR, "#tcaptcha_iframe_dy")))
-        await acc_call(id)
-        Counter.add_counter()
-        return True
+        # Клик на ОК после подтверждения
+        click_ok_verif = WebDriverWait(driver, 10).until(
+            ec.element_to_be_clickable((By.XPATH, "(//div[contains(text(),'OK')])[3]")))
+        click_ok_verif.click()
+
+        # Перезагрузка вкладки
+        driver.refresh()
+
+        return False
     except:
         try:
             verify_button = WebDriverWait(driver, 5).until(
@@ -48,15 +52,11 @@ async def code_insert(code, id):
             Counter.add_counter()
             return True
         except:
-            # Клик на ОК после подтверждения
-            click_ok_verif = WebDriverWait(driver, 10).until(
-                 ec.element_to_be_clickable((By.XPATH, "(//div[contains(text(),'OK')])[3]")))
-            click_ok_verif.click()
-
-            # Перезагрузка вкладки
-            driver.refresh()
-
-            return False
+            verify_win = WebDriverWait(driver, 5).until(
+                ec.visibility_of_element_located((By.CSS_SELECTOR, "#tcaptcha_iframe_dy")))
+            await acc_call(id)
+            Counter.add_counter()
+            return True
 
 
 async def code_call(code, id):
