@@ -1,10 +1,7 @@
 import asyncio
 import logging
 
-from aiogram import Bot, Dispatcher
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.contrib.fsm_storage.redis import RedisStorage2
-
+from loader import logger, bot, dp
 from tgbot.config import load_config
 from tgbot.filters.admin import AdminFilter
 from tgbot.handlers.ActivationCodes.acivation_code import register_activation_code
@@ -22,7 +19,6 @@ from tgbot.handlers.run_browser import register_run_browser
 from tgbot.handlers.user import register_user
 from tgbot.middlewares.environment import EnvironmentMiddleware
 
-logger = logging.getLogger(__name__)
 
 def register_all_middlewares(dp, config):
     dp.setup_middleware(EnvironmentMiddleware(config=config))
@@ -57,9 +53,6 @@ async def main():
     logger.info("Starting bot")
     config = load_config(".env")
 
-    storage = RedisStorage2() if config.tg_bot.use_redis else MemoryStorage()
-    bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
-    dp = Dispatcher(bot, storage=storage)
 
     bot['config'] = config
 
